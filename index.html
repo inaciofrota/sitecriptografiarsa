@@ -1,1 +1,119 @@
-inicio
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<title>RSA Cryptografy</title>
+		<meta charset="utf-8"/>
+		<link rel="stylesheet" href="style.css">
+		<script defer type="text/javascript" src="script.js"></script>
+		
+	</head>
+		<h1>RSA Cryptografy</h1>
+
+		<div class="mode" id="menu">
+		
+			<p>Select:</p>
+			<div>
+					<input type="radio" name="size" value="cryptdiv" id="encrypt">
+					<label for="encrypt">Encrypt</label>
+			</div>
+			<div>
+					<input type="radio" name="size" value="decryptdiv" id="decrypt">
+					<label for="decrypt">Decrypt</label>
+			</div>
+			<p>
+					<button id="btn">Submit</button>
+			</p>
+
+			<p id="output"></p>
+		</div>
+
+		<div id="cryptdiv">
+			<h2>crypt</h2>
+			<form action="" method="post">
+				<label for="crypt">private Keys</label>
+				<div>
+					<input type="radio" name="crypt" id="randomprimes">
+					<label for="crypt">Randon Primes</label>
+				</div>
+				<div>
+					<input type="radio" name="crypt" id="myprimes">
+					<label for="crypt">My prime numbers</label>
+					<textarea name="crypt" id="primes" cols="30" rows="1"></textarea>
+					<textarea name="crypt" id="primes" cols="30" rows="1"></textarea>
+				</div>
+				<div>
+					<label for="crypt">Message for Encrypt:</label>
+					<textarea name="crypt" id="message" cols="30" rows="10"></textarea>
+				</div>
+				<p>
+					<button id="btnprimes">Submit</button>
+				</p>
+
+				
+				<p>
+
+				</p>
+				
+			</form>
+		</div>
+
+
+		<div id="decryptdiv">
+			<p>decrypt div</p>
+		</div>
+
+		
+    <script>
+
+				const Menu = document.querySelector('#menu');
+				const CryptDiv = document.querySelector('#cryptdiv');
+				const DecryptDiv = document.querySelector('#decryptdiv');
+				
+				function DivControl(i){
+					if (i==1) {
+						Menu.style.display = 'block';
+						CryptDiv.style.display = 'none';
+						DecryptDiv.style.display = 'none';
+					} else if (i==2) {
+						Menu.style.display = 'none';
+						CryptDiv.style.display = 'block';
+						DecryptDiv.style.display = 'none';
+					} else {
+						Menu.style.display = 'none';
+						CryptDiv.style.display = 'none';
+						DecryptDiv.style.display = 'block';
+					}
+					
+				}
+
+				DivControl(1);
+
+
+        const btn = document.querySelector('#btn');        
+        const radioButtons = document.querySelectorAll('input[name="size"]');
+        btn.addEventListener("click", () => {
+
+						for (const radioButton of radioButtons) {
+                  if (radioButton.checked) {
+                     if (radioButton.value == 'cryptdiv') {
+												CryptDiv.style.display = 'block';
+										 } else {
+												DecryptDiv.style.display = 'block';
+										 }
+										 Menu.style.display = 'none';
+
+                     break;
+                  }
+              }
+
+        });
+
+				
+    </script>
+
+
+
+
+	<body>
+	</body>
+</html>
