@@ -12,6 +12,10 @@ body{
   background: #272a37;
   font-family: Arial, Helvetica, sans-serif;
 }
+h1{
+  color: aliceblue;
+  padding-bottom: 5px;
+}
 form{
   width: 100%;
   max-width: 30rem;
@@ -21,7 +25,6 @@ input,
 button {
   display: inline-block;
 }
-
 input,
 button {
   font: inherit;
@@ -45,9 +48,13 @@ button:focus {
   border-color: #1d90f5;
   box-shadow: 0 0 0 0.3125rem #26344a;
 }
+input,
+textarea{
+  outline: none;
+}
 label {
   margin: 0.5rem;
-  color: #84868f;
+  color: aliceblue;
 }
 button {
   padding: 1rem;
@@ -62,5 +69,38 @@ button:disabled {
   cursor: not-allowed;
   background: #555b69;
 }
+p{
+  color: #848684;
+}
 
-
+#encryptdiv,
+#decryptdiv{
+  background-color: #383d50;
+  padding: 25px;
+  border-radius: 25px;
+}
+fieldset {
+  padding: 10px;
+  border-radius: 10px;
+}
+legend{
+  background-color: aliceblue;
+  padding: 5px;
+  border-radius: 5px;
+}
+#message {
+  width: 100%;
+}
+#prime1,
+#prime2 {
+  width: 75%;
+  float: right;
+}
+textarea{
+  background-color: #323644;
+  border: none;
+  color: aliceblue;
+}
+#btnprimes{
+  float: right;
+}

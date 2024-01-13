@@ -13,7 +13,7 @@
 		
 			<p>Select:</p>
 			<div>
-					<input type="radio" name="size" value="cryptdiv" id="encrypt">
+					<input type="radio" name="size" value="encryptdiv" id="encrypt" checked>
 					<label for="encrypt">Encrypt</label>
 			</div>
 			<div>
@@ -27,26 +27,33 @@
 			<p id="output"></p>
 		</div>
 
-		<div id="cryptdiv">
-			<h2>crypt</h2>
+		<div id="encryptdiv">
 			<form action="" method="post">
-				<label for="crypt">private Keys</label>
-				<div>
-					<input type="radio" name="crypt" id="randomprimes">
-					<label for="crypt">Randon Primes</label>
-				</div>
-				<div>
-					<input type="radio" name="crypt" id="myprimes">
-					<label for="crypt">My prime numbers</label>
-					<textarea name="crypt" id="primes" cols="30" rows="1"></textarea>
-					<textarea name="crypt" id="primes" cols="30" rows="1"></textarea>
-				</div>
-				<div>
-					<label for="crypt">Message for Encrypt:</label>
-					<textarea name="crypt" id="message" cols="30" rows="10"></textarea>
-				</div>
+				<fieldset>
+					<legend>Private Keys</legend>
+					<div>
+						<input type="radio" name="radioencrypt" id="randomprimes" value="random" checked>
+						<label for="encrypt">Randon Primes</label>
+					</div>
+					<div>
+						<input type="radio" name="radioencrypt" id="myprimes" value="norandom">
+						<label for="encrypt">My prime numbers</label>
+						<br>
+						<input type="number" name="encrypt" id="prime1">
+						<input type="number" name="encrypt" id="prime2">
+						<p id="novalid">No valid numbers</p>
+					</div>
+				</fieldset>
+				<br>
+				<fieldset>
+					<legend>Message for Encrypt</legend>
+					<div>
+						<textarea name="encrypt" id="message" cols="30" rows="10"></textarea>
+					</div>
+				</fieldset>
+				<br>
 				<p>
-					<button id="btnprimes">Submit</button>
+					<button id="btnencrypt">Submit</button>
 				</p>
 
 				
@@ -66,21 +73,21 @@
     <script>
 
 				const Menu = document.querySelector('#menu');
-				const CryptDiv = document.querySelector('#cryptdiv');
+				const EncryptDiv = document.querySelector('#encryptdiv');
 				const DecryptDiv = document.querySelector('#decryptdiv');
 				
 				function DivControl(i){
 					if (i==1) {
 						Menu.style.display = 'block';
-						CryptDiv.style.display = 'none';
+						EncryptDiv.style.display = 'none';
 						DecryptDiv.style.display = 'none';
 					} else if (i==2) {
 						Menu.style.display = 'none';
-						CryptDiv.style.display = 'block';
+						EncryptDiv.style.display = 'block';
 						DecryptDiv.style.display = 'none';
 					} else {
 						Menu.style.display = 'none';
-						CryptDiv.style.display = 'none';
+						EncryptDiv.style.display = 'none';
 						DecryptDiv.style.display = 'block';
 					}
 					
@@ -95,8 +102,8 @@
 
 						for (const radioButton of radioButtons) {
                   if (radioButton.checked) {
-                     if (radioButton.value == 'cryptdiv') {
-												CryptDiv.style.display = 'block';
+                     if (radioButton.value == 'encryptdiv') {
+												EncryptDiv.style.display = 'block';
 										 } else {
 												DecryptDiv.style.display = 'block';
 										 }
@@ -108,6 +115,64 @@
 
         });
 
+				// Encrypt
+				const btnencrypt = document.querySelector('#btnencrypt');  
+				const radioPrimes = document.querySelectorAll('input[name="radioencrypt"]');
+				const norandomprime1 = document.querySelector('#prime1');
+				const norandomprime2 = document.querySelector('#prime2');
+				const message = document.querySelector('#message');
+				var prime1;
+				var prime2;
+				const novalid = document.querySelector('#novalid');
+				novalid.style.display = 'none';
+
+				btnencrypt.addEventListener("click", () => {
+					for(const radioPrime of radioPrimes){
+						if (radioPrime.checked) {
+							if (radioPrime.value == 'random') {
+								prime1 = getRandomPrimes();
+								prime2 = getRandomPrimes();
+								console.log(prime1);
+								console.log(prime2);
+							}else{
+				
+								prime1 = norandomprime1.value;
+								prime2 = norandomprime2.value;
+								console.log(prime1);
+								console.log(prime2);
+								var isPrimeTest1 = isPrime(prime1);
+								var isPrimeTest2 = isPrime(prime2);
+
+								if (isPrimeTest1 && isPrimeTest2) {
+									console.log('primes');
+									} else {
+									console.log('no primes');
+								
+									}
+								
+							}
+						} 
+					}
+
+
+				});
+
+				function isPrime(num) {
+					for(let i = 2, sqrt = Math.sqrt(num); i <= sqrt; i++)
+						if(num % i === 0) return false;
+					return num > 1;
+				}
+ 
+				function getRandomPrimes() {
+					const primes = [];
+					while (primes.length < 2) {
+						const randomNum = Math.floor(Math.random() * (100000 - 100 + 1)) + 100;
+						if (isPrime(randomNum)) {
+							primes.push(randomNum);
+						}
+					}
+					return primes;
+				}
 				
     </script>
 
