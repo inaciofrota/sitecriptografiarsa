@@ -21,7 +21,7 @@
 					<label for="decrypt">Decrypt</label>
 			</div>
 			<p>
-					<button id="btn">Submit</button>
+					<button id="btn" type="button">Submit</button>
 			</p>
 
 			<p id="output"></p>
@@ -41,7 +41,10 @@
 						<br>
 						<input type="number" name="encrypt" id="prime1">
 						<input type="number" name="encrypt" id="prime2">
-						<p id="novalid">No valid numbers</p>
+						
+						<p id="novalid">
+							No valid numbers 
+						</p>
 					</div>
 				</fieldset>
 				<br>
@@ -53,7 +56,7 @@
 				</fieldset>
 				<br>
 				<p>
-					<button id="btnencrypt">Submit</button>
+					<button id="btnencrypt" type="button">Submit</button>
 				</p>
 
 				
@@ -125,36 +128,52 @@
 				var prime2;
 				const novalid = document.querySelector('#novalid');
 				novalid.style.display = 'none';
+				var primosvalidos = false;
 
 				btnencrypt.addEventListener("click", () => {
+					var AscArray = [];
+					var MessageArray = message.value.split('');
+					MessageArray.forEach(element => {
+						var ascii_code = element.codePointAt(0);
+						AscArray.push(ascii_code);
+						
+					});
+					console.log(AscArray);
+					var messagenotdefined = true;
+					if(AscArray.length == 0){
+						messagenotdefined = false;
+					}
+
 					for(const radioPrime of radioPrimes){
 						if (radioPrime.checked) {
 							if (radioPrime.value == 'random') {
 								prime1 = getRandomPrimes();
 								prime2 = getRandomPrimes();
-								console.log(prime1);
-								console.log(prime2);
+								primosvalidos = true;
+								
 							}else{
 				
 								prime1 = norandomprime1.value;
 								prime2 = norandomprime2.value;
-								console.log(prime1);
-								console.log(prime2);
+								
 								var isPrimeTest1 = isPrime(prime1);
 								var isPrimeTest2 = isPrime(prime2);
 
 								if (isPrimeTest1 && isPrimeTest2) {
-									console.log('primes');
+									primosvalidos = true;
 									} else {
-									console.log('no primes');
-								
+										novalid.style.display = 'inline-block';
+										break;
 									}
 								
 							}
 						} 
 					}
 
+					// código da criptografia rsa
+					if(primosvalidos && messagenotdefined){
 
+						}
 				});
 
 				function isPrime(num) {
@@ -166,7 +185,7 @@
 				function getRandomPrimes() {
 					const primes = [];
 					while (primes.length < 2) {
-						const randomNum = Math.floor(Math.random() * (100000 - 100 + 1)) + 100;
+						const randomNum = Math.floor(Math.random() * (1000000 - 100 + 1)) + 1000;
 						if (isPrime(randomNum)) {
 							primes.push(randomNum);
 						}
