@@ -129,16 +129,41 @@
 				const novalid = document.querySelector('#novalid');
 				novalid.style.display = 'none';
 				var primosvalidos = false;
+				
 
 				btnencrypt.addEventListener("click", () => {
+					//message to ascii code
 					var AscArray = [];
 					var MessageArray = message.value.split('');
-					MessageArray.forEach(element => {
-						var ascii_code = element.codePointAt(0);
+					MessageArray.forEach(i => {
+						var ascii_code = i.codePointAt(0);
 						AscArray.push(ascii_code);
-						
 					});
+					
+					//numbers with 3 digitos
+					var AscArrayStandar=[];
 					console.log(AscArray);
+					AscArray.forEach(j => {
+						var l=0;
+						if (j<10) {
+						l=[00,j].join('');
+						}
+						if( j>=10 && j<100) {
+						l=[0,j].join('');
+						}
+						if (j>=100) {
+							l=j;
+						}
+						AscArrayStandar.push(l);
+					});
+					console.log(AscArrayStandar);
+					//passar array AscArrayStandar para uma única variável e depois tranformar o objeto em número
+					//console.log(AscArrayStandar.join(''));
+					//console.log(typeof AscArrayStandar);
+					//Number() parseInt()
+
+
+					// console.log(AscArray);
 					var messagenotdefined = true;
 					if(AscArray.length == 0){
 						messagenotdefined = false;
