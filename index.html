@@ -140,34 +140,50 @@
 						AscArray.push(ascii_code);
 					});
 					
-					//numbers with 3 digitos
+					//numbers with 4 digitos
 					var AscArrayStandar=[];
-					console.log(AscArray);
+					// console.log(AscArray);
 					AscArray.forEach(j => {
 						var l=0;
 						if (j<10) {
-						l=[00,j].join('');
+						l=['000',j].join('');
 						}
 						if( j>=10 && j<100) {
-						l=[0,j].join('');
+						l=['00',j].join('');
 						}
 						if (j>=100) {
-							l=j;
+							l= ['0',j].join('');
 						}
 						AscArrayStandar.push(l);
 					});
-					console.log(AscArrayStandar);
-					//passar array AscArrayStandar para uma única variável e depois tranformar o objeto em número
-					//console.log(AscArrayStandar.join(''));
-					//console.log(typeof AscArrayStandar);
-					//Number() parseInt()
+					// console.log(AscArrayStandar);
+					var MessageString = AscArrayStandar.join('');
+					
+					// PairOfNumbersArray is the array of strings ready for encryption
+					const PairOfNumbersArray = criarArrayComPares(MessageString);
+					 console.log(PairOfNumbersArray);
 
+					//function for array with 2 numbers
+					function criarArrayComPares(stringmessage) {
+						const numeroString = stringmessage.toString();
+						const arrayResultante = [];
 
-					// console.log(AscArray);
+						for (let i = 0; i < numeroString.length; i += 2) {
+							let par = numeroString.slice(i, i + 2);
+							arrayResultante.push(par);
+						}
+
+					return arrayResultante;
+					}
+
+					//message not defined
 					var messagenotdefined = true;
 					if(AscArray.length == 0){
 						messagenotdefined = false;
 					}
+					//prime numbers
+					var p1;
+					var p2;
 
 					for(const radioPrime of radioPrimes){
 						if (radioPrime.checked) {
@@ -175,11 +191,14 @@
 								prime1 = getRandomPrimes();
 								prime2 = getRandomPrimes();
 								primosvalidos = true;
+								p1 = prime1[0];
+								p2 = prime1[1];
 								
 							}else{
 				
 								prime1 = norandomprime1.value;
 								prime2 = norandomprime2.value;
+								
 								
 								var isPrimeTest1 = isPrime(prime1);
 								var isPrimeTest2 = isPrime(prime2);
@@ -194,11 +213,20 @@
 							}
 						} 
 					}
-
+					
 					// código da criptografia rsa
+					var encryptedMessageArray = [];
 					if(primosvalidos && messagenotdefined){
-
+						PairOfNumbersArray.forEach(element => {
+								var k = parseInt(element,10);
+								var l = Math.pow(k,p1);
+								var m = p1*p2;
+								var n = l%m;
+								encryptedMessageArray.push(n);
+							});
 						}
+						var encryptedMessage = encryptedMessageArray.join('');
+						console.log(encryptedMessage);
 				});
 
 				function isPrime(num) {
